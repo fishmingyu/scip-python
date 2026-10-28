@@ -50,7 +50,6 @@ export class ScipPyrightConfig {
         let config = this._getConfigOptions(host, options);
         config.checkOnlyOpenFiles = false;
         config.indexing = true;
-        config.useLibraryCodeForTypes = true;
         config.typeshedPath = this._configOptions.typeshedPath || getTypeShedFallbackPath(this.fs);
 
         return config;
@@ -125,6 +124,8 @@ export class ScipPyrightConfig {
         }
 
         const configOptions = new ConfigOptions(projectRoot, this._typeCheckingMode);
+        // Keep SCIP's default while allowing project configuration to override it.
+        configOptions.useLibraryCodeForTypes = true;
         const defaultExcludes = ['**/node_modules', '**/__pycache__', '**/.*'];
 
         if (commandLineOptions.pythonPath) {
